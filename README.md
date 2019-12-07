@@ -20,6 +20,7 @@ After cloning:
 There are two required params:
   
 {1} - path to file (if same foler - just `prices.txt`, if other folder - full path `/home/Developer/findpair/prices.txt`)  
+File should contain one item per line. Name should be divided from price by `,`  
 {2} - price as integer  
 
 And one optional:  
