@@ -1,9 +1,11 @@
 package com.testapp;
 
 import com.testapp.model.Item;
-import com.testapp.model.RecursiveResult;
+import com.testapp.model.Result;
 import com.testapp.service.FileService;
+import com.testapp.service.FindMatchPairService;
 import com.testapp.service.FindMatchRecursiveService;
+import com.testapp.service.FindMatchService;
 import lombok.NoArgsConstructor;
 import lombok.extern.java.Log;
 
@@ -17,15 +19,16 @@ import static com.testapp.Utils.tryParseInt;
 @NoArgsConstructor
 class PriceMatchHandler {
     private FileService fileService = new FileService();
-    private FindMatchRecursiveService findMatchRecursiveService = new FindMatchRecursiveService();
+    private FindMatchService findMatchRecursiveService = new FindMatchRecursiveService();
+    private FindMatchService findMatchPairService = new FindMatchPairService();
 
     /**
      * Price match handler
      * @param args - array of args (1 - path to file, 2 - target price, 3 (optional) - depth, how many items should be in response)
-     * @return {@link RecursiveResult}
+     * @return {@link Result}
      * @throws IOException Can throw exception if file can not be parsed, if incorrect format of numbers (allowed only integers), if not enough arguments. Test-cases described in PriceMatchHandlerTest
      */
-    RecursiveResult handle(String[] args) throws IOException {
+    Result handle(String[] args) throws IOException {
         log.fine(String.join(" ", args));
         if (args.length >= 2) {
             List<Item> sortedPricesList = fileService.readFile(args[0]);
@@ -37,7 +40,7 @@ class PriceMatchHandler {
                     lengthOfGroup = Integer.parseInt(args[2]);
                 }
 
-                RecursiveResult result = findMatchRecursiveService.findClosestMatch(sortedPricesList, Integer.valueOf(targetPriceStr), lengthOfGroup);
+                Result result = getFindMatchService(lengthOfGroup).findClosestMatch(sortedPricesList, Integer.parseInt(targetPriceStr), lengthOfGroup);
                 String resultString = getStringResult(result);
                 log.info(resultString);
                 return result;
@@ -51,7 +54,14 @@ class PriceMatchHandler {
         throw new IllegalArgumentException(error);
     }
 
-    String getStringResult(RecursiveResult result) {
+    private FindMatchService getFindMatchService(int lengthOfGroup) {
+        if (lengthOfGroup == 2) {
+            return findMatchPairService;
+        }
+        return findMatchRecursiveService;
+    }
+
+    String getStringResult(Result result) {
         String resultString;
         if (result.getResultList() == null) {
             resultString = "Not possible";

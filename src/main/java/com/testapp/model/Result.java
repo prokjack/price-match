@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @EqualsAndHashCode
 @RequiredArgsConstructor
-public class RecursiveResult {
+public class Result {
     private final List<Item> resultList;
     private final Integer resultPrice;
 }
