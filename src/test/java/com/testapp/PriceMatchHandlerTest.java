@@ -41,6 +41,11 @@ class PriceMatchHandlerTest {
                 Arguments.of((Object) new String[]{"src/test/resources/prices_test.txt", "2900", "2", "Paperback Book 700, Earmuffs 2000"}),
                 Arguments.of((Object) new String[]{"src/test/resources/prices_test.txt", "14000", "5", "Candy Bar 500, Detergent 1000, Headphones 1400, Earmuffs 2000, Bluetooth HiFi Stereo 9000"}),
                 Arguments.of((Object) new String[]{"src/test/resources/prices_test.txt", "2000", "3", "Not possible"}),
+                Arguments.of((Object) new String[]{"src/test/resources/prices_test.txt", "4000", "3", "Candy Bar 500, Headphones 1400, Earmuffs 2000"}),
+                Arguments.of((Object) new String[]{"src/test/resources/prices_test.txt", "6000", "3", "Detergent 1000, Headphones 1400, Earmuffs 2000"}),
+                Arguments.of((Object) new String[]{"src/test/resources/prices_test.txt", "9400", "3", "Headphones 1400, Earmuffs 2000, Bluetooth Stereo 6000"}),
+                Arguments.of((Object) new String[]{"src/test/resources/prices_test.txt", "9500", "3", "Headphones 1400, Earmuffs 2000, Bluetooth Stereo 6000"}),
+                Arguments.of((Object) new String[]{"src/test/resources/prices_test.txt", "11650", "3", "Candy Bar 500, Earmuffs 2000, Bluetooth HiFi Stereo 9000"}),
                 Arguments.of((Object) new String[]{"src/test/resources/prices_test.txt", "10400", "4", "Detergent 1000, Headphones 1400, Earmuffs 2000, Bluetooth Stereo 6000"}),
                 Arguments.of((Object) new String[]{"src/test/resources/prices_test.txt", "10400", "1", "Bluetooth HiFi Stereo 9000"})
         );

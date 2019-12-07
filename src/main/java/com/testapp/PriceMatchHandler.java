@@ -2,10 +2,7 @@ package com.testapp;
 
 import com.testapp.model.Item;
 import com.testapp.model.Result;
-import com.testapp.service.FileService;
-import com.testapp.service.FindMatchPairService;
-import com.testapp.service.FindMatchRecursiveService;
-import com.testapp.service.FindMatchService;
+import com.testapp.service.*;
 import lombok.NoArgsConstructor;
 import lombok.extern.java.Log;
 
@@ -19,6 +16,7 @@ import static com.testapp.Utils.tryParseInt;
 @NoArgsConstructor
 class PriceMatchHandler {
     private FileService fileService = new FileService();
+    private FindMatchService findMatchTripletService = new FindMatchTripletService();
     private FindMatchService findMatchRecursiveService = new FindMatchRecursiveService();
     private FindMatchService findMatchPairService = new FindMatchPairService();
 
@@ -55,10 +53,11 @@ class PriceMatchHandler {
     }
 
     private FindMatchService getFindMatchService(int lengthOfGroup) {
-        if (lengthOfGroup == 2) {
-            return findMatchPairService;
+        switch (lengthOfGroup) {
+            case 2: return findMatchPairService;
+            case 3: return findMatchTripletService;
+            default: return findMatchRecursiveService;
         }
-        return findMatchRecursiveService;
     }
 
     String getStringResult(Result result) {

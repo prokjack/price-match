@@ -36,7 +36,7 @@ public class FindMatchPairService implements FindMatchService {
             int currentDiff = startPrice + endPrice - targetPrice;
             int absOfCurrentDiff = Math.abs(currentDiff);
             // Check if current items are closer to targetPrice then the closest items before
-            if (absOfCurrentDiff < diff && currentDiff < 0) {
+            if (absOfCurrentDiff < diff && currentDiff <= 0) {
                 resultStart = startIndex;
                 resultEnd = endIndex;
                 diff = absOfCurrentDiff;
